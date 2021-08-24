@@ -130,13 +130,10 @@ public class SuperGrid {
 
     public boolean isSolved() {
         if (validColumns() && validRows() & validSubGrids()) {
-            System.out.println("Sudoku is solved");
             return true;
             
         }
         else {
-            System.out.println("Sudoku is not solved");
-
             return false;
 
         }

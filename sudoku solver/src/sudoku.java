@@ -1,14 +1,114 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import structure.Grid3x3;
 import structure.SuperGrid;
-import structure.Tile;
+
+
 
 public class sudoku {
-    public static void main(String[] args) {
 
+    public static void menu() {
+        int choice = 0;
+        while (choice != 2) {
+            System.out.print("\n--------------");
+            System.out.print("\n----SUDOKU----");
+            System.out.print("\n--------------\n");
+            System.out.println("Please choose an option");
+            System.out.println("1. New Game");
+            System.out.println("2. Quit");
+            String input = System.console().readLine();
+            choice = Integer.valueOf(input);
+
+            if (choice == 1) {
+                play();
+            }
+            if (choice == 2) {
+                return;
+            }
+        }
+
+
+        
+
+
+    }
+
+
+    public static void play() {
+        // validation will be needed
+        //print board
+        boolean gameFinished = false;
+
+
+        Integer[][] gameExample = new Integer[][]{
+            { 0, 0, 0, 2, 6, 0, 7, 0, 1 },
+            { 6, 8, 0, 0, 7, 0, 0, 9, 0 },
+            { 1, 9, 0, 0, 0, 4, 5, 0, 0 },
+            { 8, 2, 0, 1, 0, 0, 0, 4, 0 },
+            { 0, 0, 4, 6, 0, 2, 9, 0, 0 },
+            { 0, 5, 0, 0, 0, 3, 0, 2, 8 },
+            { 0, 0, 9, 3, 0, 0, 0, 7, 4 },
+            { 0, 4, 0, 0, 5, 0, 0, 3, 6 },
+            { 7, 0, 3, 0, 1, 8, 0, 0, 0 }
+
+        };
+        SuperGrid gameGrid = SuperGrid.patternToGrid(gameExample);
+
+
+
+        while (!gameFinished) {
+            System.out.println("\n" + gameGrid);
+
+            // Initialise board (example at the moment but soon to be generated)
+
+            //ask for coordiantes
+            System.out.println("Enter the desired coordinates (e.g. 3,2)");
+            System.out.println("or");
+            System.out.println("Enter q to quit and c to check the board");
+            String input = System.console().readLine();
+
+            if (input.charAt(0) == 'q') {
+                gameFinished = true;
+                return;
+            }
+            else if (input.charAt(0) == 'c'){
+                gameFinished = gameGrid.isSolved();
+                if (gameFinished == false) {
+                    System.out.println("\nIncorrect Solution");
+                }
+                else {
+                    System.out.println("\nCorrect Solution");
+
+                }
+            }
+            else {
+                int x = Integer.valueOf(""+input.charAt(0));
+                int y = Integer.valueOf(""+input.charAt(2));
+                System.out.println("Enter the value you would like to enter here (1-9)");
+                input = System.console().readLine();
+                int value = Integer.valueOf(input);
+                gameGrid.setTile(x, y, value);    
+            }
+
+
+
+        }
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public static void main(String[] args) {
+        /** 
         Integer[][] example1 = new Integer[][]{
             { 1, 2, 3, 4, 5, 6, 7, 8, 9 },
             { 9, 1, 2, 3, 4, 5, 6, 7, 8 },
@@ -23,6 +123,8 @@ public class sudoku {
         };
 
 
+
+
         Integer[][] solvedSudoku = new Integer[][]{
             { 1, 2, 3, 6, 7, 8, 9, 4, 5 },
             { 5, 8, 4, 2, 3, 9, 7, 6, 1 },
@@ -35,10 +137,12 @@ public class sudoku {
             { 7, 4, 5, 3, 1, 6, 8, 9, 2 }
 
         };
+        */
 
 
 
         // add these rows to create a test grid to check the toString function
+        /**
         SuperGrid testGrid = SuperGrid.patternToGrid(solvedSudoku);
         SuperGrid testGrid2 = SuperGrid.patternToGrid(example1);
 
@@ -48,7 +152,9 @@ public class sudoku {
 
         System.out.println(testGrid2.toString());
         testGrid2.isSolved();
+        */
 
+        menu();
 
     }
 
