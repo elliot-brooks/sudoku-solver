@@ -9,7 +9,7 @@ import structure.Tile;
 public class sudoku {
     public static void main(String[] args) {
 
-        Integer[][] pattern = new Integer[][]{
+        Integer[][] example1 = new Integer[][]{
             { 1, 2, 3, 4, 5, 6, 7, 8, 9 },
             { 9, 1, 2, 3, 4, 5, 6, 7, 8 },
             { 8, 9, 1, 2, 3, 4, 5, 6, 7 },
@@ -40,11 +40,18 @@ public class sudoku {
 
         // add these rows to create a test grid to check the toString function
         SuperGrid testGrid = SuperGrid.patternToGrid(solvedSudoku);
+        SuperGrid testGrid2 = SuperGrid.patternToGrid(example1);
 
 
         System.out.println(testGrid.toString());
-        System.out.println(testGrid.Check3x3Duplicates());
+        testGrid.isSolved();
+
+        System.out.println(testGrid2.toString());
+        testGrid2.isSolved();
+
+
     }
+
     
 
 }

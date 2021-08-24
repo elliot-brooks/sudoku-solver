@@ -75,11 +75,36 @@ public class SuperGrid {
 
     }
 
+    public boolean validRows(){
+        Set<Integer> checkRow;
+        for (int i = 0; i < 9; i++){
+            checkRow = new HashSet<>();
+            checkRow.addAll(this.getRow(i));
+            if (!validSet(checkRow)) {
+                return false;
+            }
+        }
+        return true;
 
-    public boolean Check3x3Duplicates() {
+    }
+
+
+    public boolean validColumns() {
+        Set<Integer> checkColumn;
+        for (int i = 0; i < 9; i++){
+            checkColumn = new HashSet<>();
+            checkColumn.addAll(this.getColumn(i));
+            if (!validSet(checkColumn)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validSubGrids() {
 
         Set<Integer> gridSet;
-        
+
         for (int GridStartY = 0; GridStartY < 9; GridStartY += 3) {
             for (int GridStartX = 0; GridStartX < 9; GridStartX += 3) {
                 gridSet = new HashSet<>();
@@ -92,15 +117,29 @@ public class SuperGrid {
 
                     }
                 }
-                System.out.print(gridSet);
                 if (!validSet(gridSet)) {
-                    return true;
+                    return false;
                 }
             
             }
         }
-        return false;
+        return true;
         // no duplicates found
+    }
+
+
+    public boolean isSolved() {
+        if (validColumns() && validRows() & validSubGrids()) {
+            System.out.println("Sudoku is solved");
+            return true;
+            
+        }
+        else {
+            System.out.println("Sudoku is not solved");
+
+            return false;
+
+        }
     }
 
     public String toString() {
