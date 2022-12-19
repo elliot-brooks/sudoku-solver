@@ -1,9 +1,8 @@
-
-import structure.SuperGrid;
-
+import structure.Board;
 
 
-public class sudoku {
+
+public class SudokuGame {
 
     public static void menu() {
         int choice = 0;
@@ -24,19 +23,11 @@ public class sudoku {
                 return;
             }
         }
-
-
-        
-
-
     }
 
 
     public static void play() {
-        // validation will be needed
-        //print board
         boolean gameFinished = false;
-
 
         Integer[][] gameExample = new Integer[][]{
             { 0, 0, 0, 2, 6, 0, 7, 0, 1 },
@@ -50,8 +41,7 @@ public class sudoku {
             { 7, 0, 3, 0, 1, 8, 0, 0, 0 }
 
         };
-        SuperGrid gameGrid = SuperGrid.patternToGrid(gameExample);
-
+        Board gameGrid = Board.patternToGrid(gameExample);
 
 
         while (!gameFinished) {
@@ -78,6 +68,11 @@ public class sudoku {
                     System.out.println("\nCorrect Solution");
 
                 }
+                
+            }
+            else if (input.charAt(0) == 's') {
+                Solver.solveBoard(gameGrid.getBoardArray());
+
             }
             else {
                 int x = Integer.valueOf(""+input.charAt(0));

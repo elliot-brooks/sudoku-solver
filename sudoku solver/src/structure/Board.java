@@ -6,15 +6,18 @@ import java.util.List;
 import java.util.Set;
 
 
-public class SuperGrid {
+public class Board {
     private List<List<Tile>> tiles;
-
-    public SuperGrid(List<List<Tile>> newTiles) {
+    public Board(List<List<Tile>> newTiles) {
         tiles = newTiles;
     } 
 
-
-    public static SuperGrid patternToGrid(Integer[][] pattern) {
+    /**
+     * Takes a Integer array and turns it into a board
+     * @param pattern
+     * @return
+     */
+    public static Board patternToGrid(Integer[][] pattern) {
         List<List<Tile>> tileArray = new ArrayList<>();
         List<Tile> row = new ArrayList<>();
 
@@ -26,10 +29,27 @@ public class SuperGrid {
             tileArray.add(row);
         }
 
-        return new SuperGrid(tileArray);
+        return new Board(tileArray);
     }
 
-        
+    /**
+     * Returns the board in Array format
+     * @return
+     */
+    public Tile[][] getBoardArray() {
+        Tile[][] array = new Tile[tiles.size()][];
+        for (int i = 0; i < tiles.size(); i++) {
+            List<Tile> row = tiles.get(i);
+            array[i] = row.toArray(new Tile[row.size()]);
+        }
+        return array;
+    }
+
+    /**
+     * Gets Row
+     * @param index
+     * @return
+     */
     public List<Integer> getRow(int index) {
         List<Tile> rowListTiles = tiles.get(index);
         List<Integer> rowList = new ArrayList<>();
@@ -40,6 +60,11 @@ public class SuperGrid {
         return rowList;
     }
 
+    /**
+     * Gets Column
+     * @param index
+     * @return
+     */
     public List<Integer> getColumn(int index) {
         List<Integer> columnList = new ArrayList<Integer>();
         for (int i = 0; i < 9 ; i++) {
@@ -51,14 +76,42 @@ public class SuperGrid {
     }
 
 
+    /**
+     * Gets tile
+     * @param x
+     * @param y
+     * @return
+     */
     public Tile getTile(int x, int y) {
         return tiles.get(y).get(x);
     }
 
+    /**
+     * Sets tile with bypass set to false (default)
+     * @param x
+     * @param y
+     * @param value
+     */
     public void setTile(int x, int y, int value){
-        tiles.get(y).set(x, new Tile(value));
+        tiles.get(y).get(x).setVal(value, false);
     }
 
+    /**
+     * Sets tile with option to bypass tiles that cannot be changes
+     * @param x
+     * @param y
+     * @param value
+     * @param bypass
+     */
+    public void setTile(int x, int y, int value, boolean bypass) {
+        tiles.get(y).get(x).setVal(value, bypass);
+    }
+
+    /**
+     * Checks if a set is valid (contains 1-9) no duplicates
+     * @param uncheckedSet
+     * @return
+     */
     public boolean validSet(Set<Integer> uncheckedSet) {
 
         if (uncheckedSet.contains(1) && uncheckedSet.contains(2) && uncheckedSet.contains(3) && uncheckedSet.contains(4) && uncheckedSet.contains(5) && uncheckedSet.contains(6) && uncheckedSet.contains(7) && uncheckedSet.contains(8) && uncheckedSet.contains(9)) {
@@ -75,6 +128,10 @@ public class SuperGrid {
 
     }
 
+    /**
+     * Checks if all rows are valid
+     * @return
+     */
     public boolean validRows(){
         Set<Integer> checkRow;
         for (int i = 0; i < 9; i++){
@@ -88,7 +145,10 @@ public class SuperGrid {
 
     }
 
-
+    /**
+     * Checks if all columns are valid
+     * @return
+     */
     public boolean validColumns() {
         Set<Integer> checkColumn;
         for (int i = 0; i < 9; i++){
@@ -101,6 +161,10 @@ public class SuperGrid {
         return true;
     }
 
+    /**
+     * Checks if all 3x3 grids in the board are valid
+     * @return
+     */
     public boolean validSubGrids() {
 
         Set<Integer> gridSet;
@@ -128,6 +192,10 @@ public class SuperGrid {
     }
 
 
+    /**
+     * Returns true if the sudoku is solved
+     * @return
+     */
     public boolean isSolved() {
         if (validColumns() && validRows() & validSubGrids()) {
             return true;
@@ -155,5 +223,4 @@ public class SuperGrid {
         }
         return stringBuilder;
     }
-
 }
