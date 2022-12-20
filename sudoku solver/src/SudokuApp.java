@@ -1,13 +1,9 @@
-
-import java.beans.EventHandler;
-
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import structure.Board;
@@ -18,9 +14,30 @@ public class SudokuApp extends Application {
     VBox root = new VBox(4);
     BoardVisualizer bv = new BoardVisualizer();
     Board board;
+    private Integer selectedRow, selectedColumn;
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void clickGrid(javafx.scene.input.MouseEvent event) {
+        Node clickedNode = event.getPickResult().getIntersectedNode();
+        Node stack_pane = clickedNode.getParent();
+        selectedColumn = GridPane.getColumnIndex(stack_pane);
+        selectedRow = GridPane.getRowIndex(stack_pane);
+
+        resetGrid(board);
+
+    }
+
+    public void resetGrid(Board board) {
+        root.getChildren().remove(bv.getBoardGraphic());
+        GridPane gp = bv.createBoardGraphic(board, selectedColumn, selectedRow);
+        gp.setOnMouseClicked(ActionEvent -> {
+            clickGrid(ActionEvent);
+        });
+        bv.setBoardGraphic(gp);
+        root.getChildren().add(bv.getBoardGraphic());
     }
 
     @Override
@@ -29,7 +46,11 @@ public class SudokuApp extends Application {
 
         board = Generator.generateBoard();
 
-        GridPane boardGraphic = bv.createBoardGraphic(board);
+        GridPane boardGraphic = bv.createBoardGraphic(board, selectedRow, selectedRow);
+        boardGraphic.setOnMouseClicked(ActionEvent -> {
+            clickGrid(ActionEvent);
+        });
+
         boardGraphic.setAlignment(Pos.CENTER);
         Button generate_button = new Button();
         generate_button.setText("Generate Puzzle");
@@ -44,41 +65,27 @@ public class SudokuApp extends Application {
         solve_button.setAlignment(Pos.CENTER);
 
         generate_button.setOnAction(ActionEvent -> {
-            // gets file chosen from file chooser
-
-            // gets path from file
             board = Generator.generateBoard();
-            // removes maze board from scene
             root.getChildren().remove(bv.getBoardGraphic());
-            // makes new maze board with new maze
-            bv.setBoardGraphic(bv.createBoardGraphic(board));
-
-            // adds new maze board back to scene
+            bv.setBoardGraphic(bv.createBoardGraphic(board, selectedRow, selectedColumn));
             root.getChildren().add(bv.getBoardGraphic());
-            // update size of screen
             stage.sizeToScene();
 
         });
 
-
         solve_button.setOnAction(ActionEvent -> {
             Solver.solveBoard(board.getBoardArray());
-
-
             root.getChildren().remove(bv.getBoardGraphic());
-            // makes new maze board with new maze
-            bv.setBoardGraphic(bv.createBoardGraphic(board));
-
-            // adds new maze board back to scene
+            bv.setBoardGraphic(bv.createBoardGraphic(board, selectedRow, selectedColumn));
             root.getChildren().add(bv.getBoardGraphic());
-            // update size of screen
             stage.sizeToScene();
 
         });
 
         root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(generate_button, check_button, solve_button, boardGraphic);
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
     }

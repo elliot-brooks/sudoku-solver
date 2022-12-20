@@ -7,39 +7,39 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import structure.Board;
-
-
-
 public class BoardVisualizer {
 
     private GridPane board;
-
 
     public GridPane getBoardGraphic() {
         return board;
     }
 
-
     public void setBoardGraphic(GridPane boardIn) {
         board = boardIn;
     }
 
-
-    public GridPane createBoardGraphic(Board boardObj) {
+    public GridPane createBoardGraphic(Board boardObj, Integer selRow, Integer selCol) {
         this.board = new GridPane();
 
         for (int i = 0; i < boardObj.getTiles().size(); i++) {
             for (int j = 0; j < boardObj.getTiles().get(i).size(); j++) {
+
                 Text text = new Text(boardObj.getTile(i, j).toString());
 
                 Rectangle tile = new Rectangle(50, 50);
                 tile.setStroke(Color.BLACK);
                 tile.setFill(Color.WHITE);
+                if (selCol != null && selRow != null) {
+                    if (selCol == i && selRow == j) {
+                        tile.setFill(Color.GREEN);
+                    }
+                }
+
                 StackPane sp = new StackPane();
-                sp.getChildren().addAll(tile,text);
+                sp.getChildren().addAll(tile, text);
 
-
-                board.add(sp,j, i);
+                board.add(sp, j, i);
             }
         }
         return board;
