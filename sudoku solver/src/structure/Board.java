@@ -7,7 +7,9 @@ import java.util.Set;
 
 
 public class Board {
+    
     private List<List<Tile>> tiles;
+
     public Board(List<List<Tile>> newTiles) {
         tiles = newTiles;
     } 
@@ -15,7 +17,7 @@ public class Board {
     /**
      * Takes a Integer array and turns it into a board
      * @param pattern
-     * @return
+     * @return 
      */
     public static Board patternToGrid(Integer[][] pattern) {
         List<List<Tile>> tileArray = new ArrayList<>();
