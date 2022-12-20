@@ -15,7 +15,7 @@ public class Consts {
     public static final int BOARD_SIZE = 9;
 
     public static final String MENU = "\n--------------" +
-                                      "\n----SUDOKU----)" +
+                                      "\n----SUDOKU----" +
                                       "\n--------------\n" +
                                       "Please choose an option\n" +
                                       "1. New Game\n" +

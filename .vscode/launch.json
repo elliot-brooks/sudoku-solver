@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SudokuApp",
+            "request": "launch",
+            "mainClass": "SudokuApp",
+            "projectName": "sudoku-solver_380f8776"
+        },
+        {
+            "type": "java",
             "name": "Launch SudokuGame",
             "request": "launch",
             "mainClass": "SudokuGame",

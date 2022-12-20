@@ -47,5 +47,14 @@ public class Tile {
 
     public static Tile fromInt(int newVal) {
         return new Tile(newVal);
-    }    
+    }
+
+    @Override
+    public String toString() {
+        if (value != 0) {
+            return String.valueOf(getVal());
+        }
+        
+        return "";
+    }
 }

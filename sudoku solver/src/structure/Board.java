@@ -9,10 +9,26 @@ import java.util.Set;
 public class Board {
     
     private List<List<Tile>> tiles;
+    private List<List<Tile>> startingBoard;
 
     public Board(List<List<Tile>> newTiles) {
         tiles = newTiles;
-    } 
+        startingBoard = new ArrayList<>();
+
+        for (List<Tile> row : tiles) {
+            List<Tile> newRow = new ArrayList<>();
+            for (Tile tile : row) {
+                newRow.add(new Tile(tile.getVal()));
+            }
+            startingBoard.add(newRow);
+        }
+
+    }
+
+
+    public List<List<Tile>> getTiles() {
+        return tiles;
+    }
 
     /**
      * Takes a Integer array and turns it into a board
@@ -47,6 +63,9 @@ public class Board {
         return array;
     }
 
+    public void resetBoard() {
+        this.tiles = this.startingBoard;
+    }
     /**
      * Gets Row
      * @param index
