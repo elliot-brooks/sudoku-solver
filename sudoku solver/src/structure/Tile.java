@@ -27,6 +27,10 @@ public class Tile {
         tile_type = (this.value == 0) ? TileType.EMPTY : TileType.UNCHANGEABLE;
     }
 
+    public void setInStone() {
+        tile_type = TileType.UNCHANGEABLE;
+    }
+
     public int getVal() {
         return value;
     }

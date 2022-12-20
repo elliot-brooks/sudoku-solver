@@ -8,7 +8,18 @@ public class Generator {
         Board board = Board.patternToGrid(Consts.EMPTY_BOARD);                    
         Solver.solveBoard(board.getBoardArray());
         punchHoles(board);
+        lockFilledInTiles(board);
         return board;
+    }
+
+    private static void lockFilledInTiles(Board board) {
+        for (int row = 0 ; row < Consts.BOARD_SIZE; row++) {
+            for (int column = 0; column < Consts.BOARD_SIZE; column++) {
+                if (board.getTile(row, column).getVal() != 0) {
+                    board.getTile(row, column).setInStone();
+                }
+            }
+        }
     }
 
     private static void punchHoles(Board board) {
@@ -26,5 +37,7 @@ public class Generator {
                 }
             }
         }
+
+
     }
 }

@@ -3,6 +3,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -66,25 +68,71 @@ public class SudokuApp extends Application {
 
         generate_button.setOnAction(ActionEvent -> {
             board = Generator.generateBoard();
-            root.getChildren().remove(bv.getBoardGraphic());
-            bv.setBoardGraphic(bv.createBoardGraphic(board, selectedRow, selectedColumn));
-            root.getChildren().add(bv.getBoardGraphic());
-            stage.sizeToScene();
+            resetGrid(board);
+
+        });
+
+        
+        check_button.setOnAction(ActionEvent -> {
+            boolean solved = board.isSolved();
+            if (solved) {
+                System.out.println("You solved the puzzle!");
+            }
+            else {
+                System.out.println("The puzzle is incorrect!");
+            }
+            resetGrid(board);
+
 
         });
 
         solve_button.setOnAction(ActionEvent -> {
             Solver.solveBoard(board.getBoardArray());
-            root.getChildren().remove(bv.getBoardGraphic());
-            bv.setBoardGraphic(bv.createBoardGraphic(board, selectedRow, selectedColumn));
-            root.getChildren().add(bv.getBoardGraphic());
-            stage.sizeToScene();
+            resetGrid(board);
+
 
         });
 
         root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(generate_button, check_button, solve_button, boardGraphic);
         Scene scene = new Scene(root);
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if (selectedColumn == null && selectedRow == null) {
+                return;
+            }
+            if (key.getCode() == KeyCode.DIGIT1) {
+                board.setTile(selectedRow, selectedColumn, 1);
+            }
+            if (key.getCode() == KeyCode.DIGIT2) {
+                board.setTile(selectedRow, selectedColumn, 2);
+            }
+            if (key.getCode() == KeyCode.DIGIT3) {
+                board.setTile(selectedRow, selectedColumn, 3);
+            }
+            if (key.getCode() == KeyCode.DIGIT4) {
+                board.setTile(selectedRow, selectedColumn, 4);
+            }
+            if (key.getCode() == KeyCode.DIGIT5) {
+                board.setTile(selectedRow, selectedColumn, 5);
+            }
+            if (key.getCode() == KeyCode.DIGIT6) {
+                board.setTile(selectedRow, selectedColumn, 6);
+            }
+            if (key.getCode() == KeyCode.DIGIT7) {
+                board.setTile(selectedRow, selectedColumn, 7);
+            }
+            if (key.getCode() == KeyCode.DIGIT8) {
+                board.setTile(selectedRow, selectedColumn, 8);
+            }
+            if (key.getCode() == KeyCode.DIGIT9) {
+                board.setTile(selectedRow, selectedColumn, 9);
+            }
+            if (key.getCode() == KeyCode.DIGIT0) {
+                board.setTile(selectedRow, selectedColumn, 0);
+            }
+            resetGrid(board);
+
+        });
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();

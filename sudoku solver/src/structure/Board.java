@@ -63,9 +63,6 @@ public class Board {
         return array;
     }
 
-    public void resetBoard() {
-        this.tiles = this.startingBoard;
-    }
     /**
      * Gets Row
      * @param index
