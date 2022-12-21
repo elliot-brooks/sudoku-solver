@@ -30,6 +30,22 @@ public class Board {
         return tiles;
     }
 
+    public void resetBoard() {
+        tiles = startingBoard;
+    }
+
+    public void refreshStartingBoard() {
+        startingBoard = new ArrayList<>();
+
+        for (List<Tile> row : tiles) {
+            List<Tile> newRow = new ArrayList<>();
+            for (Tile tile : row) {
+                newRow.add(new Tile(tile.getVal()));
+            }
+            startingBoard.add(newRow);
+        }
+    }
+
     /**
      * Takes a Integer array and turns it into a board
      * @param pattern

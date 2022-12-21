@@ -30,6 +30,9 @@ public class BoardVisualizer {
                 Rectangle tile = new Rectangle(50, 50);
                 tile.setStroke(Color.BLACK);
                 tile.setFill(Color.WHITE);
+                if (!boardObj.getTile(i, j).isChangable()) {
+                    tile.setFill(Color.RED);
+                }
                 if (selCol != null && selRow != null) {
                     if (selCol == i && selRow == j) {
                         tile.setFill(Color.GREEN);

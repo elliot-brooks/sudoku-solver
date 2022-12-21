@@ -9,6 +9,7 @@ public class Generator {
         Solver.solveBoard(board.getBoardArray());
         punchHoles(board);
         lockFilledInTiles(board);
+        board.refreshStartingBoard();
         return board;
     }
 

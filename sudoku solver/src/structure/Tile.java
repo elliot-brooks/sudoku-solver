@@ -31,6 +31,11 @@ public class Tile {
         tile_type = TileType.UNCHANGEABLE;
     }
 
+    public boolean isChangable() {
+        if (tile_type != TileType.UNCHANGEABLE) return true;
+        else return false;
+    }
+
     public int getVal() {
         return value;
     }

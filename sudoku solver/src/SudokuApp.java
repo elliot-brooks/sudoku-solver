@@ -87,6 +87,7 @@ public class SudokuApp extends Application {
         });
 
         solve_button.setOnAction(ActionEvent -> {
+            board.resetBoard();
             Solver.solveBoard(board.getBoardArray());
             resetGrid(board);
 
