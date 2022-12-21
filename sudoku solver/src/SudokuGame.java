@@ -53,8 +53,7 @@ public class SudokuGame {
                 
             }
             else if (input.charAt(0) == 's') {
-                gameGrid.resetBoard();
-                Solver.solveBoard(gameGrid.getBoardArray());
+                Solver.solveBoard(gameGrid);
 
                 System.out.print("Solved");
                 System.out.println("\n" + gameGrid);

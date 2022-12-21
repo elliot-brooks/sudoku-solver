@@ -6,7 +6,7 @@ public class Generator {
 
     public static Board generateBoard() {
         Board board = Board.patternToGrid(Consts.EMPTY_BOARD);                    
-        Solver.solveBoard(board.getBoardArray());
+        Solver.solveBoard(board);
         punchHoles(board);
         lockFilledInTiles(board);
         board.refreshStartingBoard();
