@@ -52,18 +52,20 @@ public class Solver {
     }
   }
 
-  public static boolean solveBoard(Board board) {
+  public static boolean solveBoard(Board board, boolean shuffle) {
     board.resetBoard();
     int[] trial_array = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     for (int row = 0; row < Consts.BOARD_SIZE; row++) {
       for (int column = 0; column < Consts.BOARD_SIZE; column++) {
         if (board.getTile(row, column).getVal() == 0) {
-          shuffleArray(trial_array);
+          if (shuffle) {
+            shuffleArray(trial_array);
+          }
           for (int trialNum : trial_array) {
             if (isValidPlacement(board, trialNum, row, column)) {
               board.getTile(row, column).setVal(trialNum, true);
 
-              if (solveBoard(board)) {
+              if (solveBoard(board, shuffle)) {
                 return true;
               } else {
                 board.getTile(row, column).setVal(0, true);
