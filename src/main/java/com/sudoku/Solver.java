@@ -70,6 +70,7 @@ public class Solver {
               if (solveBoard(board, shuffle)) {
                 return true;
               } else {
+                //System.out.println(board.toString());
                 board.getTile(row, column).setVal(0, true);
               }
             }

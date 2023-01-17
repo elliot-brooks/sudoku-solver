@@ -246,11 +246,11 @@ public class Board {
         for (int i = 0; i < 9; i++){
             stringBuilder += "| ";
             for (int j = 0; j < 9; j++){
-                if (tiles.get(i).get(j).isEmpty()){
+                if (getTile(i,j).isEmpty()){
                     stringBuilder += " " + " | ";
                 }
                 else {
-                    stringBuilder += tiles.get(i).get(j).getVal() + " | ";
+                    stringBuilder += getTile(i,j).getVal() + " | ";
                 }
             }
             stringBuilder += ("\n-------------------------------------\n");
